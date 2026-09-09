@@ -31,14 +31,27 @@ public slots:
 	void onObjectPicked(const CGObjectInstance *);
 
 private slots:
-	void on_loseComboBox_currentIndexChanged(int index);
+	void on_addConditionButton_clicked();
+	void on_editConditionButton_clicked();
+	void on_removeConditionButton_clicked();
 
 private:
-	Ui::LoseConditions *ui;
+	Ui::LoseConditions * ui;
 
-	QComboBox * loseTypeWidget = nullptr;
-	QComboBox * loseSelectWidget = nullptr;
-	QLineEdit * loseValueWidget = nullptr;
-	QToolButton * pickObjectButton = nullptr;
+	int editingIndex = -1;
+
+	void openConditionDialog();
+	void updateStandardDefeatCheck();
+
+	enum class LoseConditionType
+	{
+		LOSE_CASTLE = 0,
+		LOSE_HERO = 1,
+		TIME_EXPIRED = 2,
+		DAYS_WITHOUT_TOWN = 3
+	};
+
+	static bool requiresObjectSelection(int type);
+
 };
 
